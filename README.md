@@ -5,7 +5,7 @@ This is a frontend web application that allows users to publish hackathons with 
 
 ## Link
 
-[Hackathon Publishing Platform](https://capable-cendol-4a01f6.netlify.app/)
+[Hackathon Publishing Platform](https://chimerical-souffle-8ef9df.netlify.app/)
 
 ## Features
 
