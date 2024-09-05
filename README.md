@@ -51,28 +51,20 @@ To run this project locally, you need:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/hackathon-publishing-platform.git
+git clone https://github.com/Pritimohan/Hackathon-Front-End.git
 ```
 
-2. Navigate to the project directory:
-
-```bash
-cd hackathon-publishing-platform
-```
-
-3. Install the required dependencies:
+2. Install the required dependencies:
 
 ```bash
 npm install
 ```
 
-4. Run the application:
+3. Run the application:
 
 ```bash
-npm start
+npm run dev
 ```
-
-5. Open your browser and visit `http://localhost:3000` to view the application.
 
 ## Usage
 
