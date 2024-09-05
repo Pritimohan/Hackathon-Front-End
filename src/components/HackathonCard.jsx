@@ -6,7 +6,8 @@ function HackathonCard({ title, imageUrl, startTime, endTime, id }) {
         const currentTime = new Date();
         const start = new Date(startTime);
         const end = new Date(endTime);
-        const difference = end - currentTime;
+        const difference = start - currentTime;
+        const seconedDifference = end - currentTime;
 
         let timeLeft = {};
         let status = '';
@@ -19,12 +20,21 @@ function HackathonCard({ title, imageUrl, startTime, endTime, id }) {
             status = 'Past';
         }
 
-        if (difference > 0 && status !== 'Past') {
-            timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-            };
+        if (difference > 0 && status !== 'Past' || seconedDifference > 0 && status === 'Active') {
+            if (status === 'Upcoming') {
+                timeLeft = {
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((difference / 1000 / 60) % 60),
+                };
+            } else if (status === 'Active') {
+                timeLeft = {
+                    days: Math.floor(seconedDifference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((seconedDifference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((seconedDifference / 1000 / 60) % 60),
+                };
+            }
+
         }
 
         return { timeLeft, status };
@@ -52,7 +62,7 @@ function HackathonCard({ title, imageUrl, startTime, endTime, id }) {
         }, 1000);
 
         return () => clearTimeout(timer);
-    }, [startTime, endTime, timeLeft, status, id, updateStatusInLocalStorage, ]);
+    }, [startTime, endTime, timeLeft, status, id, updateStatusInLocalStorage,]);
 
     const timerComponents = [];
 
@@ -75,9 +85,9 @@ function HackathonCard({ title, imageUrl, startTime, endTime, id }) {
                 <img className="w-full h-48 object-cover" src={imageUrl} alt={title} />
                 <div className="p-6">
                     <span className={`inline-block text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide 
-                        ${status === "Upcoming" ? "bg-yellow-300 text-gray-500" : 
-                          status === "Active" ? "bg-green-300 text-gray-500" : 
-                          "bg-red-300 text-gray-500"}`}>
+                        ${status === "Upcoming" ? "bg-yellow-300 text-gray-500" :
+                            status === "Active" ? "bg-green-300 text-gray-500" :
+                                "bg-red-300 text-gray-500"}`}>
                         {status}
                     </span>
                     <h2 className="text-lg font-semibold mt-2 mb-4 font-poppins">{title}</h2>
@@ -86,7 +96,7 @@ function HackathonCard({ title, imageUrl, startTime, endTime, id }) {
                             <p className="text-gray-500 font-poppins font-semibold">Starts in</p>
                             <div className="flex justify-center mt-2 text-lg font-poppins gap-2 font-bold">
                                 <div>
-                                    {timeLeft.days} 
+                                    {timeLeft.days}
                                     <p className='text-xs font-normal'>days</p>
                                 </div>:
                                 <div>
